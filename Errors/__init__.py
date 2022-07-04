@@ -1,3 +1,4 @@
+# Testing error classes
 class DifferentLength(Exception):
     def __init__(self, message="The axes are not the same size."):
         super().__init__(message)

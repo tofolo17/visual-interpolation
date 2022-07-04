@@ -1,35 +1,22 @@
 from Errors import *
 
 
-class Interpolation:
-    def __init__(self):
-        self.x_axis = list()
-        self.y_axis = list()
+class Spline:
+    def __init__(self, x: list, y: list, t: str = 't'):
+        self.x = x
+        self.y = y
+        self.t = t
 
-    def set_axis(self, x: list, y: list):
-        self.x_axis = x
-        self.y_axis = y
+        self.solution = self.solve()
 
-
-class Spline(Interpolation):
-    def __init__(self):
-        super().__init__()
-        self.__solution = None
-
-    @property
-    def solution(self):
-        if self.__solution is None:
-            self.solve()
-        return self.__solution
-
-    def solve(self, t: str = 'cubic'):
-        if len(self.x_axis) != len(self.y_axis):
+    def solve(self):
+        if len(self.x) != len(self.y):
             raise DifferentLength
-        if t == 'cubic':
-            if len(self.x_axis) < 3:
+        if self.t == 'cubic':
+            if len(self.x) < 3:
                 raise SmallLength
 
-        self.__solution = self._solver_algorithm()
+        return self._solver_algorithm()
 
     def _solver_algorithm(self):
         """
@@ -38,9 +25,9 @@ class Spline(Interpolation):
         https://en.wikipedia.org/wiki/Spline_(mathematics).
         """
         # Input
-        x = self.x_axis
-        y = self.y_axis
-        n = len(self.x_axis)
+        x = self.x
+        y = self.y
+        n = len(self.x)
 
         # 1.
         a = [0] * n
@@ -89,6 +76,6 @@ class Spline(Interpolation):
         # Output
         splines = []
         for i in range(n - 1):
-            splines.append([a[i], b[i], c[i], d[i], x[i]])
+            splines.append([a[i], b[i], c[i], d[i]])
 
         return splines
