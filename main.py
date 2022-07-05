@@ -1,34 +1,12 @@
-from random import randint
-
-import matplotlib.pyplot as plt
-import numpy as np
-
-from Classes import *
+from Modules.interpolation import *
 
 
 def main():
-    size = randint(3, 20)
-    x = sorted([randint(-100, 100) for _ in range(size)])
-    y = [randint(-100, 100) for _ in range(size)]
-
+    y = [0, 0.01, 0.03, 0.08, 0.2, 0.4, 0.67, 0.85, 0.93, 0.97, 1.0]
+    x = [1000, 1050, 1150, 1250, 1350, 1450, 1550, 1650, 1750, 1850, 2000]
     spline = Spline(x, y)
-    solution = spline.solution
 
-    plt.plot(x, y, 'o')
-    for i in range(len(solution)):
-        f = solution[i]
-
-        a = f[0]
-        b = f[1]
-        c = f[2]
-        d = f[3]
-        xi = x[i]
-
-        x_ = np.linspace(xi, x[i + 1], 100)
-        y_ = a + b * (x_ - xi) + c * (x_ - xi) ** 2 + d * (x_ - xi) ** 3
-        plt.plot(x_, y_)
-
-    plt.show()
+    spline.plot()
 
 
 main()
