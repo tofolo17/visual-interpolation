@@ -14,7 +14,6 @@ class GameController(object):
 
     def set_background(self):
         self.background = pygame.surface.Surface(SCREENSIZE).convert()
-        self.background.fill(BLACK)
 
     def start_game(self):
         self.set_background()
@@ -36,6 +35,9 @@ class GameController(object):
                     self.dots.delete_dot(coordinate)
 
     def render(self):
+        # to delete dots
+        self.screen.fill(BLACK)
+
         self.dots.render(self.screen)
         pygame.display.update()
 
