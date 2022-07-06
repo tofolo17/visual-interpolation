@@ -27,12 +27,16 @@ class GameController(object):
         for event in pygame.event.get():
             if event.type == QUIT:
                 exit()
+
+            drag_pos = None
             coordinate = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.dots.create_dot(coordinate)
                 if event.button == 3:
                     self.dots.delete_dot(coordinate)
+            if event.type == MOUSEMOTION:
+                self.dots.drag_dot(coordinate)
 
     def render(self):
         # to delete dots
