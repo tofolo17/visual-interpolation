@@ -1,12 +1,14 @@
 from pygame.locals import *
 
 from pyg.Modules.dots import *
+from pyg.Modules.interpolation import *
 
 
 class GameController(object):
     def __init__(self):
         pygame.init()
         self.dots = None
+        self.linear = None
         self.background = None
         self.screen = pygame.display.set_mode(SCREENSIZE, 0, 32)
 
@@ -14,8 +16,9 @@ class GameController(object):
         self.background = pygame.surface.Surface(SCREENSIZE).convert()
 
     def start_game(self):
-        self.set_background()
         self.dots = Dots()
+        self.set_background()
+        self.linear = Linear(self.dots)
 
     def update(self):
         self.check_events()
@@ -23,17 +26,21 @@ class GameController(object):
 
     def check_events(self):
         for event in pygame.event.get():
+            coordinate = pygame.mouse.get_pos()
+
             if event.type == QUIT:
                 exit()
 
-            coordinate = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.dots.create_dot(coordinate)
+
                 if event.button == 3:
                     self.dots.delete_dot(coordinate)
+
             if event.type == pygame.MOUSEMOTION:
                 self.dots.start_drag(coordinate)
+
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
                     self.dots.stop_drag()
@@ -42,6 +49,7 @@ class GameController(object):
         # to delete dots
         self.screen.fill(BLACK)
 
+        self.linear.render(self.screen)
         self.dots.render(self.screen)
         pygame.display.update()
 
@@ -49,5 +57,6 @@ class GameController(object):
 if __name__ == "__main__":
     game = GameController()
     game.start_game()
+
     while True:
         game.update()

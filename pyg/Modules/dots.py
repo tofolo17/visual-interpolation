@@ -13,15 +13,31 @@ class Dots:
         self.drag_index = None
 
     def create_dot(self, pos):
+        i = 0
         create = True
 
-        for i in range(len(self.coordinates)):
+        while i < len(self.coordinates) and create:
             position = self.coordinates[i]
+
             if self.__in_circle(pos, position):
                 self.drag_index = i
                 create = False
+
+            i += 1
+
         if create:
-            self.coordinates += [pos]
+            i = 0
+            index_found = False
+
+            while i < len(self.coordinates) and not index_found:
+                position = self.coordinates[i]
+
+                if pos[0] < position[0]:
+                    index_found = True
+                else:
+                    i += 1
+
+            self.coordinates.insert(i, pos)
 
     def delete_dot(self, pos):
         remove = []
@@ -53,4 +69,5 @@ class Dots:
         distance = math.sqrt((x_click - x_dot) ** 2 + (y_click - y_dot) ** 2)
         if distance <= self.radius:
             return True
+
         return False
