@@ -2,25 +2,26 @@ import math
 
 import pygame
 
-from constants import *
+from pyg.constants import *
 
 
 class Dots:
     def __init__(self):
         self.width = 1
         self.radius = 7
-        self.drag = None
         self.coordinates = []
+        self.drag_index = None
 
     def create_dot(self, pos):
         create = True
-        for position in self.coordinates:
+
+        for i in range(len(self.coordinates)):
+            position = self.coordinates[i]
             if self.__in_circle(pos, position):
+                self.drag_index = i
                 create = False
         if create:
             self.coordinates += [pos]
-            return
-        return pos
 
     def delete_dot(self, pos):
         remove = []
@@ -31,8 +32,12 @@ class Dots:
 
         self.coordinates = [position for position in self.coordinates if position not in remove]
 
-    def drag_dot(self, pos):
-        pass
+    def start_drag(self, pos):
+        if self.drag_index is not None:
+            self.coordinates[self.drag_index] = pos
+
+    def stop_drag(self):
+        self.drag_index = None
 
     def render(self, screen):
         for position in self.coordinates:

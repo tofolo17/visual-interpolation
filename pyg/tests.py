@@ -1,23 +1,21 @@
 import pygame
 from pygame.locals import *
 
-from constants import *
-from dots import Dots
+from pyg.constants import *
 
 
 class GameController(object):
     def __init__(self):
         pygame.init()
-        self.dots = None
         self.background = None
         self.screen = pygame.display.set_mode(SCREENSIZE, 0, 32)
 
     def set_background(self):
         self.background = pygame.surface.Surface(SCREENSIZE).convert()
+        self.screen.fill(BLACK)
 
     def start_game(self):
         self.set_background()
-        self.dots = Dots()
 
     def update(self):
         self.check_events()
@@ -28,21 +26,7 @@ class GameController(object):
             if event.type == QUIT:
                 exit()
 
-            drag_pos = None
-            coordinate = pygame.mouse.get_pos()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    self.dots.create_dot(coordinate)
-                if event.button == 3:
-                    self.dots.delete_dot(coordinate)
-            if event.type == MOUSEMOTION:
-                self.dots.drag_dot(coordinate)
-
     def render(self):
-        # to delete dots
-        self.screen.fill(BLACK)
-
-        self.dots.render(self.screen)
         pygame.display.update()
 
 
