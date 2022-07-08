@@ -50,6 +50,28 @@ class Dots:
 
     def start_drag(self, pos):
         if self.drag_index is not None:
+            drag_dot = self.coordinates[self.drag_index]
+
+            if self.drag_index != 0:
+                previous_dot = self.coordinates[self.drag_index - 1]
+
+                if drag_dot[0] < previous_dot[0]:
+                    temp = previous_dot
+                    self.coordinates[self.drag_index - 1] = drag_dot
+                    self.coordinates[self.drag_index] = temp
+
+                    self.drag_index -= 1
+
+            if self.drag_index != len(self.coordinates) - 1:
+                next_dot = self.coordinates[self.drag_index + 1]
+
+                if drag_dot[0] > next_dot[0]:
+                    temp = next_dot
+                    self.coordinates[self.drag_index + 1] = drag_dot
+                    self.coordinates[self.drag_index] = temp
+
+                    self.drag_index += 1
+
             self.coordinates[self.drag_index] = pos
 
     def stop_drag(self):

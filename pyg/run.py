@@ -8,6 +8,7 @@ class GameController(object):
     def __init__(self):
         pygame.init()
         self.dots = None
+        self.spline = None
         self.linear = None
         self.background = None
         self.screen = pygame.display.set_mode(SCREENSIZE, 0, 32)
@@ -18,6 +19,7 @@ class GameController(object):
     def start_game(self):
         self.dots = Dots()
         self.set_background()
+        self.spline = Spline(self.dots)
         self.linear = Linear(self.dots)
 
     def update(self):
@@ -46,11 +48,12 @@ class GameController(object):
                     self.dots.stop_drag()
 
     def render(self):
-        # to delete dots
         self.screen.fill(BLACK)
 
-        self.linear.render(self.screen)
         self.dots.render(self.screen)
+        self.spline.render(self.screen)
+        self.linear.render(self.screen)
+
         pygame.display.update()
 
 
