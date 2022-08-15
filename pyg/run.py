@@ -2,7 +2,6 @@ from pygame.locals import *
 
 from pyg.Graphics.dots import *
 from pyg.Graphics.interpolation import *
-from pyg.UI.ui import UI
 
 
 class GameController(object):
@@ -26,8 +25,8 @@ class GameController(object):
         self.linear = Linear(self.dots)
 
         # UI
-        self.UI = UI()
-        self.checkboxes = self.UI.checkboxes
+        # self.UI = UI()
+        # self.checkboxes = self.UI.checkboxes
 
     def update(self):
         self.check_events()
@@ -42,10 +41,10 @@ class GameController(object):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    clicked = self.checkboxes.check_click(coordinate)
+                    # clicked = self.checkboxes.check_click(coordinate)
 
-                    if not clicked:
-                        self.dots.create_dot(coordinate)
+                    # if not clicked:
+                    self.dots.create_dot(coordinate)
 
                 if event.button == 3:
                     self.dots.delete_dot(coordinate)
@@ -60,13 +59,13 @@ class GameController(object):
     def render(self):
         self.screen.fill(BLACK)
 
-        self.UI.render()
+        # self.UI.render()
         self.dots.render(self.screen)
 
-        if self.checkboxes['spline'].clicked:
-            self.spline.render(self.screen)
-        if self.checkboxes['linear'].clicked:
-            self.linear.render(self.screen)
+        # if self.checkboxes['spline'].clicked:
+        self.spline.render(self.screen)
+        # if self.checkboxes['linear'].clicked:
+        self.linear.render(self.screen)
 
         pygame.display.update()
 
