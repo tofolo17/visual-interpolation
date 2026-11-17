@@ -15,7 +15,9 @@ class Spline:
             raise Exception('The axes are not the same size.')
         if self.t == 'cubic':
             if len(self.x) < 3:
-                raise Exception('You need three (or more) points to smooth the dataset with cubic interpolation.')
+                raise Exception(
+                    'You need three (or more) points to smooth the dataset with cubic interpolation.'
+                )
             return self.__cubic_algorithm()
         return
 
@@ -51,7 +53,9 @@ class Spline:
         # 4.
         alpha = [0] * (n - 1)
         for i in range(1, n - 1):
-            alpha[i] = (3 / h[i]) * (a[i + 1] - a[i]) - (3 / h[i - 1]) * (a[i] - a[i - 1])
+            alpha[i] = (3 / h[i]) * (a[i + 1] - a[i]) - (3 / h[i - 1]) * (
+                a[i] - a[i - 1]
+            )
 
         # 5.
         c = [0] * n
@@ -75,7 +79,9 @@ class Spline:
         # 9.
         for j in range(n - 2, -1, -1):
             c[j] = z[j] - u[j] * c[j + 1]
-            b[j] = (a[j + 1] - a[j]) / h[j] - (h[j] * (c[j + 1] + 2 * c[j])) / 3
+            b[j] = (a[j + 1] - a[j]) / h[j] - (
+                h[j] * (c[j + 1] + 2 * c[j])
+            ) / 3
             d[j] = (c[j + 1] - c[j]) / (3 * h[j])
 
         # Output

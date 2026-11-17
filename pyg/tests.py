@@ -1,3 +1,5 @@
+# Scratch test for the (unfinished) checkbox UI; its constructor has since
+# changed, so this file is out of date.
 from pyg.UI.checkbox import *
 
 pg.init()

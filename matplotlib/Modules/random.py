@@ -7,7 +7,7 @@ class Random:
             self.__seed = (a * self.__seed + b) % c
             return self.__seed
         elif a == b == c and a is None:
-            s = str(self.__seed ** 2)
+            s = str(self.__seed**2)
             while len(s) != 12:
                 s = "0" + s
             self.__seed = int(s[3:9])

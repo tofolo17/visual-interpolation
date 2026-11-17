@@ -15,7 +15,9 @@ class Checkbox:
         self.outline_color = (0, 0, 0)
 
         self.checkbox_size = 12
-        self.checkbox_obj = pg.Rect(self.x, self.y, self.checkbox_size, self.checkbox_size)
+        self.checkbox_obj = pg.Rect(
+            self.x, self.y, self.checkbox_size, self.checkbox_size
+        )
         self.checkbox_outline = self.checkbox_obj.copy()
 
         self.click = False
@@ -36,7 +38,9 @@ class Checkbox:
         if self.checked:
             pg.draw.rect(screen, self.color, self.checkbox_obj)
             pg.draw.rect(screen, self.outline_color, self.checkbox_outline, 1)
-            pg.draw.circle(screen, self.check_color, (self.x + 6, self.y + 6), 4)
+            pg.draw.circle(
+                screen, self.check_color, (self.x + 6, self.y + 6), 4
+            )
 
         elif self.unchecked:
             pg.draw.rect(screen, self.color, self.checkbox_obj)

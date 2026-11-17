@@ -26,7 +26,9 @@ class Linear(Interpolation):
 
     def draw(self, screen):
         for i in range(1, len(self.coordinates)):
-            pygame.draw.line(screen, WHITE, self.coordinates[i - 1], self.coordinates[i])
+            pygame.draw.line(
+                screen, WHITE, self.coordinates[i - 1], self.coordinates[i]
+            )
 
 
 class Curve(Interpolation, ABC):
@@ -60,6 +62,8 @@ class Curve(Interpolation, ABC):
         pass
 
 
+# Natural cubic spline (Burden & Faires, Numerical Analysis, Algorithm 3.4),
+# redrawn every frame from the current points.
 class Spline(Curve):
     def __init__(self, dots):
         super().__init__(dots)
@@ -113,7 +117,9 @@ class Spline(Curve):
         # 4.
         alpha = [0] * (n - 1)
         for i in range(1, n - 1):
-            alpha[i] = (3 / h[i]) * (a[i + 1] - a[i]) - (3 / h[i - 1]) * (a[i] - a[i - 1])
+            alpha[i] = (3 / h[i]) * (a[i + 1] - a[i]) - (3 / h[i - 1]) * (
+                a[i] - a[i - 1]
+            )
 
         # 5.
         c = [0] * n
@@ -137,7 +143,9 @@ class Spline(Curve):
         # 9.
         for j in range(n - 2, -1, -1):
             c[j] = z[j] - u[j] * c[j + 1]
-            b[j] = (a[j + 1] - a[j]) / h[j] - (h[j] * (c[j + 1] + 2 * c[j])) / 3
+            b[j] = (a[j + 1] - a[j]) / h[j] - (
+                h[j] * (c[j + 1] + 2 * c[j])
+            ) / 3
             d[j] = (c[j + 1] - c[j]) / (3 * h[j])
 
         # Output

@@ -39,6 +39,8 @@ class GameController(object):
             if event.type == QUIT:
                 exit()
 
+            # Left click adds a point (or grabs one to drag); right click
+            # removes it.
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     # clicked = self.checkboxes.check_click(coordinate)

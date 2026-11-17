@@ -46,7 +46,9 @@ class Dots:
             if self.__in_circle(pos, position):
                 remove += [position]
 
-        self.coordinates = [position for position in self.coordinates if position not in remove]
+        self.coordinates = [
+            position for position in self.coordinates if position not in remove
+        ]
 
     def start_drag(self, pos):
         if self.drag_index is not None:
@@ -79,7 +81,9 @@ class Dots:
 
     def render(self, screen):
         for position in self.coordinates:
-            pygame.draw.circle(screen, WHITE, position, self.radius, self.width)
+            pygame.draw.circle(
+                screen, WHITE, position, self.radius, self.width
+            )
 
     def __in_circle(self, pos_click, pos_dot):
         x_click = pos_click[0]
